@@ -6,6 +6,13 @@ namespace Module3HW2
 {
     public class Starter
     {
+        public Starter(IAlphabetConfigurationService alphabetConfigurationService)
+        {
+            AlphabetConfigurationService = alphabetConfigurationService;
+        }
+
+        public IAlphabetConfigurationService AlphabetConfigurationService { get; set; }
+
         public void Run()
         {
             Console.WriteLine("1.English\n2.Русский\n3.Default\n");

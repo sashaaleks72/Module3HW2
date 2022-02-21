@@ -8,88 +8,19 @@ namespace Module3HW2
     {
         public ContactsContainer(CultureInfo culture)
         {
+            AlphabetConfig = new AlphabetConfigurationService().DeserializeAlphabetConfig();
+
             Culture = culture;
 
-            if (Culture.Name == "ru")
-            {
-                Contacts = new Dictionary<string, List<ContactInfo>>()
-                {
-                    { "А", new List<ContactInfo>() },
-                    { "Б", new List<ContactInfo>() },
-                    { "В", new List<ContactInfo>() },
-                    { "Г", new List<ContactInfo>() },
-                    { "Д", new List<ContactInfo>() },
-                    { "Е", new List<ContactInfo>() },
-                    { "Ё", new List<ContactInfo>() },
-                    { "Ж", new List<ContactInfo>() },
-                    { "З", new List<ContactInfo>() },
-                    { "И", new List<ContactInfo>() },
-                    { "Й", new List<ContactInfo>() },
-                    { "К", new List<ContactInfo>() },
-                    { "Л", new List<ContactInfo>() },
-                    { "М", new List<ContactInfo>() },
-                    { "Н", new List<ContactInfo>() },
-                    { "О", new List<ContactInfo>() },
-                    { "П", new List<ContactInfo>() },
-                    { "Р", new List<ContactInfo>() },
-                    { "С", new List<ContactInfo>() },
-                    { "Т", new List<ContactInfo>() },
-                    { "У", new List<ContactInfo>() },
-                    { "Ф", new List<ContactInfo>() },
-                    { "Х", new List<ContactInfo>() },
-                    { "Ц", new List<ContactInfo>() },
-                    { "Ч", new List<ContactInfo>() },
-                    { "Ш", new List<ContactInfo>() },
-                    { "Щ", new List<ContactInfo>() },
-                    { "Ь", new List<ContactInfo>() },
-                    { "Ъ", new List<ContactInfo>() },
-                    { "Ы", new List<ContactInfo>() },
-                    { "Э", new List<ContactInfo>() },
-                    { "Ю", new List<ContactInfo>() },
-                    { "Я", new List<ContactInfo>() },
-                    { "#", new List<ContactInfo>() },
-                    { "0-9", new List<ContactInfo>() }
-                };
-            }
-            else
-            {
-                Contacts = new Dictionary<string, List<ContactInfo>>()
-                {
-                    { "A", new List<ContactInfo>() },
-                    { "B", new List<ContactInfo>() },
-                    { "C", new List<ContactInfo>() },
-                    { "D", new List<ContactInfo>() },
-                    { "E", new List<ContactInfo>() },
-                    { "F", new List<ContactInfo>() },
-                    { "G", new List<ContactInfo>() },
-                    { "H", new List<ContactInfo>() },
-                    { "I", new List<ContactInfo>() },
-                    { "J", new List<ContactInfo>() },
-                    { "K", new List<ContactInfo>() },
-                    { "L", new List<ContactInfo>() },
-                    { "M", new List<ContactInfo>() },
-                    { "N", new List<ContactInfo>() },
-                    { "O", new List<ContactInfo>() },
-                    { "P", new List<ContactInfo>() },
-                    { "Q", new List<ContactInfo>() },
-                    { "R", new List<ContactInfo>() },
-                    { "S", new List<ContactInfo>() },
-                    { "T", new List<ContactInfo>() },
-                    { "U", new List<ContactInfo>() },
-                    { "V", new List<ContactInfo>() },
-                    { "W", new List<ContactInfo>() },
-                    { "X", new List<ContactInfo>() },
-                    { "Y", new List<ContactInfo>() },
-                    { "Z", new List<ContactInfo>() },
-                    { "#", new List<ContactInfo>() },
-                    { "0-9", new List<ContactInfo>() }
-                };
-            }
+            Contacts = new Dictionary<string, List<ContactInfo>>();
+            AddChapters();
         }
 
         public Dictionary<string, List<ContactInfo>> Contacts { get; set; }
 
         private CultureInfo Culture { get; set; }
+
+        private AlphabetConfig AlphabetConfig { get; set; }
 
         public void ShowAllContacts()
         {
@@ -184,6 +115,17 @@ namespace Module3HW2
             Contacts[chapter].RemoveAt(index);
 
             Console.WriteLine($"Contact {fullNameOfDeletedPerson} was deleted");
+        }
+
+        private void AddChapters()
+        {
+            foreach (var letter in AlphabetConfig.Alphabets[Culture.Name])
+            {
+                Contacts.Add(letter.ToString(), new List<ContactInfo>());
+            }
+
+            Contacts.Add("#", new List<ContactInfo>());
+            Contacts.Add("0-9", new List<ContactInfo>());
         }
     }
 }
