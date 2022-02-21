@@ -6,12 +6,12 @@ namespace Module3HW2
 {
     public class Starter
     {
+        private readonly IAlphabetConfigurationService _alphabetConfigurationService;
+
         public Starter(IAlphabetConfigurationService alphabetConfigurationService)
         {
-            AlphabetConfigurationService = alphabetConfigurationService;
+            _alphabetConfigurationService = alphabetConfigurationService;
         }
-
-        public IAlphabetConfigurationService AlphabetConfigurationService { get; set; }
 
         public void Run()
         {
@@ -34,7 +34,7 @@ namespace Module3HW2
                     break;
             }
 
-            ContactsContainer contactsContainer = new ContactsContainer(culture);
+            ContactsContainer contactsContainer = new ContactsContainer(_alphabetConfigurationService, culture);
 
             ContactInfo[] contactInfos = new ContactInfo[]
             {

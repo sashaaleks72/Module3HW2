@@ -6,9 +6,12 @@ namespace Module3HW2
 {
     public class ContactsContainer
     {
-        public ContactsContainer(CultureInfo culture)
+        private readonly IAlphabetConfigurationService _alphabetConfigurationService;
+
+        public ContactsContainer(IAlphabetConfigurationService alphabetConfigurationService, CultureInfo culture)
         {
-            AlphabetConfig = new AlphabetConfigurationService().DeserializeAlphabetConfig();
+            _alphabetConfigurationService = alphabetConfigurationService;
+            AlphabetConfig = _alphabetConfigurationService.DeserializeAlphabetConfig(@"C:\Users\sasha\source\repos\Module3HW2\Module3HW2\Module3HW2\Configs\alphabet-config.json");
 
             Culture = culture;
 
